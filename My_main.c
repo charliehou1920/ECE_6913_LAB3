@@ -47,7 +47,7 @@ void STAGE_3()
 	res = 0;
 	do
 	{
-		res = wait(3000);
+		res = checkPed(3000);
 		if (res == 1)
 		{
 			PED_Stage1();
@@ -58,7 +58,7 @@ void STAGE_3()
 	res = 0;
 	do
 	{
-		res = wait(5000);
+		res = checkPed(5000);
 		if (res == 1)
 		{
 			PED_Stage1();
@@ -84,7 +84,7 @@ void STAGE_5()
 	setLED(EW_YELLOW, 1);
 	do
 	{
-		res = wait(3000);
+		res = checkPed(3000);
 		if (res == 1)
 		{
 			PED_Stage1();
@@ -96,7 +96,7 @@ void STAGE_5()
 	setLED(EW_RED, 1);
 	do
 	{
-		res = wait(5000);
+		res = checkPed(5000);
 		if (res == 1)
 		{
 			PED_Stage1();
@@ -111,7 +111,7 @@ void PED_Stage1()
 	setLED(PED_GREEN, 1);
 	setLED(NS_RED, 1);
 	setLED(EW_RED, 1);
-	sleep(15000);
+	delay(15000);
 	setLED(PED_GREEN, 0);
 	setLED(PED_RED, 1);
 	return;
@@ -128,11 +128,11 @@ void PED_Stage2(char Direction)
 		while (k <= 9)
 		{
 			setLED(NS_YELLOW, 1);
-			sleep(333);
+			delay(333);
 			setLED(NS_YELLOW, 0);
-			sleep(333);
+			delay(333);
 			setLED(NS_YELLOW, 1);
-			sleep(333);
+			delay(333);
 			k++;
 		}
 	}
@@ -142,11 +142,11 @@ void PED_Stage2(char Direction)
 		while (k <= 9)
 		{
 			setLED(EW_YELLOW, 1);
-			sleep(333);
+			delay(333);
 			setLED(EW_YELLOW, 0);
-			sleep(333);
+			delay(333);
 			setLED(EW_YELLOW, 1);
-			sleep(333);
+			delay(333);
 			k++;
 		}
 	}
@@ -156,7 +156,7 @@ void PED_Stage2(char Direction)
 	setLED(PED_GREEN, 1);
 	setLED(NS_RED, 1);
 	setLED(EW_RED, 1);
-	sleep(15000);
+	delay(15000);
 	setLED(PED_GREEN, 0);
 	setLED(PED_RED, 1);
 	return;
@@ -175,7 +175,7 @@ int main()
 		{
 		case 1:
 			STAGE_1();
-			res = wait(10000);
+			res = checkPed(10000);
 			if (res == 1)
 			{
 				PED_Stage1();
@@ -184,7 +184,7 @@ int main()
 			break;
 		case 2:
 			STAGE_2();
-			res = wait(20000);
+			res = checkPed(20000);
 			if (res == 1)
 			{
 				PED_Stage2('N');
@@ -196,7 +196,7 @@ int main()
 			break;
 		case 4:
 			STAGE_4();
-			res = wait(20000);
+			res = checkPed(20000);
 			if (res == 1)
 			{
 				PED_Stage2('E');
