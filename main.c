@@ -1,4 +1,4 @@
-// #include "lab3.h"
+#include "header1.h"
 
 // typedef enum
 // {
@@ -44,7 +44,7 @@ void STAGE_2()
 void STAGE_3()
 {
 	setLED(NS_YELLOW, 1);
-	res = 0;
+	int res = 0;
 	do
 	{
 		res = checkPed(3000);
