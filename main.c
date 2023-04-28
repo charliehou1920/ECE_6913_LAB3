@@ -42,7 +42,7 @@ void STAGE_2()
 }
 
 void STAGE_3()
-{	
+{
 	RESTART();
 	setLED(NS_YELLOW, ON);
 	int res = 0;
