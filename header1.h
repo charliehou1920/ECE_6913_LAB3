@@ -1,8 +1,10 @@
 #define DELAY 200
 #define DELAY10 10000
+#define DELAY15 15000
 #define DELAY20 20000
 #define DELAY5 5000
 #define DELAY3 3000
+#define Flashing 333
 
 #define ON  0x01
 #define OFF 0x00
