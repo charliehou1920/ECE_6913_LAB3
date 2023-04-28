@@ -28,4 +28,5 @@
 void setupGPIO();
 int setLED(int color, int state);
 void delay(int milliseconds);
-int checkBot();
+int checkPed(int milliseconds);
+// int checkBot();

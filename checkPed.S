@@ -5,28 +5,33 @@
 #include "memoryMap.inc"
 #include "GPIO.inc"
 
-// a0 is milliseconds passed through the parameter
-wait:
+# a0 is milliseconds passed through the parameter
+checkPed:
 	addi sp, sp, -16
 	sw ra, 12(sp)
 
-	li t0, MTIME
-	li t1, GPIO_CTRL_ADDR
-	lw t2, 0(t0)    // here t2 is current time
-	li t3, MTIME_FREQUENCY
-	mul t3, t3, a0
-	add t3, t3, t2  // t3 is time to return
+	li t0, MTIME	# load the timer register
+	li t1, GPIO_CTRL_ADDR 
+	lw t2, 0(t0)    # load the current value of the timer
+	li t3, MTIME_FREQUENCY # get our approximate clock freq
+	mul t3, t3, a0 # multiply milliseconds with freq
+	add t3, t3, t2  # the target MTIME is now in t3
+
+
 	
 1:
-	lw t2, GPIO_INPUT_VAL(t1)   // here t2 is GPIO input value
-	and t2, t2, GPIO_PIN_15
-	beqz t2, pressed            // when input is 0, button is pressed
+	lw t2, GPIO_INPUT_VAL(t1) # load GPIO input value into t2
+	and t2, t2, PIN_15	# get the value from PIN_15
+	beqz t2, pressed
 	lw t2, 0(t0)
-	blt t2, t3, 1b
+	blt t2, t3, 1b	# keep looping until time out
 	li a0, 0
 	j exit
+
 pressed:
-	li a0, 1
+	li a0, 1 # load 1 into a0
+
+
 exit:
 	lw ra, 12(sp)
 	addi sp, sp, 16

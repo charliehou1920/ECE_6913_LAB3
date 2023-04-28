@@ -10,22 +10,22 @@
 // 	PED_STAGE    // Pedestrian crossing mode
 // }State;
 
+void RESTART()
+{
+	setLED(NS_GREEN, OFF);
+	setLED(NS_YELLOW, OFF);
+	setLED(NS_RED, OFF);
+	setLED(EW_GREEN, OFF);
+	setLED(EW_YELLOW, OFF);
+	setLED(EW_RED, OFF);
+	setLED(PED_GREEN, OFF);
+	setLED(PED_RED, OFF);
+	return;
+}
 
-// void ALL_OFF()
-// {
-// 	setLED(LED_PED_GREEN, 0);
-// 	setLED(LED_PED_RED, 0);
-// 	setLED(LED_NS_GREEN, 0);
-// 	setLED(LED_NS_YELLOW, 0);
-// 	setLED(LED_NS_RED, 0);
-// 	setLED(LED_EW_GREEN, 0);
-// 	setLED(LED_EW_YELLOW, 0);
-// 	setLED(LED_EW_RED, 0);
-// 	return;
-// }
 void STAGE_1()
 {
-	// ALL_OFF();
+	RESTART();
 	setLED(PED_RED, ON);
 	setLED(NS_RED, ON);
 	setLED(EW_RED, ON);
@@ -34,7 +34,7 @@ void STAGE_1()
 
 void STAGE_2()
 {
-	// ALL_OFF();
+	// RESTART();
 	setLED(PED_RED, ON);
 	setLED(NS_GREEN, ON);
 	setLED(EW_RED, ON);
@@ -42,7 +42,8 @@ void STAGE_2()
 }
 
 void STAGE_3()
-{
+{	
+	RESTART();
 	setLED(NS_YELLOW, ON);
 	int res = 0;
 	do
@@ -55,7 +56,7 @@ void STAGE_3()
 	} while (res == 1);
 	setLED(NS_YELLOW, OFF);
 	setLED(NS_RED, ON);
-	res = 0;
+	int res = 0;
 	do
 	{
 		res = checkPed(DELAY5);
@@ -69,7 +70,7 @@ void STAGE_3()
 
 void STAGE_4()
 {
-	// ALL_OFF();
+	RESTART();
 	setLED(EW_GREEN, ON);
 	setLED(PED_RED, ON);
 	setLED(NS_RED, ON);
@@ -79,6 +80,7 @@ void STAGE_4()
 void STAGE_5()
 {
 	int res = 0;
+	RESTART();
 	setLED(NS_RED, ON);
 	setLED(PED_RED, ON);
 	setLED(EW_YELLOW, ON);
@@ -107,7 +109,7 @@ void STAGE_5()
 
 void PED_Stage1()
 {
-	ALL_OFF();
+	RESTART();
 	setLED(PED_GREEN, ON);
 	setLED(NS_RED, ON);
 	setLED(EW_RED, ON);
@@ -117,15 +119,17 @@ void PED_Stage1()
 	return;
 }
 
+
+// changed while
 void PED_Stage2(char Direction)
 {
-	ALL_OFF();
-	int k = 0;
+	RESTART();
+	// int i = 0;
 	setLED(PED_RED, ON);
-	if (Direction == 'N')
+	if (Direction == 'NS')
 	{
 		setLED(EW_RED, ON);
-		while (k <= 9)
+		for(int i = 1; i <= 10; i++)
 		{
 			setLED(NS_YELLOW, ON);
 			delay(Flashing);
@@ -133,13 +137,25 @@ void PED_Stage2(char Direction)
 			delay(Flashing);
 			setLED(NS_YELLOW, ON);
 			delay(Flashing);
-			k++;
 		}
+
+
+		// while (k <= 9)
+		// {
+		// 	setLED(NS_YELLOW, ON);
+		// 	delay(Flashing);
+		// 	setLED(NS_YELLOW, OFF);
+		// 	delay(Flashing);
+		// 	setLED(NS_YELLOW, ON);
+		// 	delay(Flashing);
+		// 	k++;
+		// }
 	}
-	else if (Direction == 'E')
+	else if (Direction == 'EW')
 	{
 		setLED(NS_RED, ON);
-		while (k <= 9)
+
+		for(int i = 1; i <= 10; i++ )
 		{
 			setLED(EW_YELLOW, ON);
 			delay(Flashing);
@@ -147,8 +163,18 @@ void PED_Stage2(char Direction)
 			delay(Flashing);
 			setLED(EW_YELLOW, ON);
 			delay(Flashing);
-			k++;
 		}
+
+		// while (k <= 9)
+		// {
+		// 	setLED(EW_YELLOW, ON);
+		// 	delay(Flashing);
+		// 	setLED(EW_YELLOW, OFF);
+		// 	delay(Flashing);
+		// 	setLED(EW_YELLOW, ON);
+		// 	delay(Flashing);
+		// 	k++;
+		// }
 	}
 	setLED(NS_YELLOW, OFF);
 	setLED(EW_YELLOW, OFF);
@@ -187,7 +213,7 @@ int main()
 			res = checkPed(DELAY20);
 			if (res == 1)
 			{
-				PED_Stage2('N');
+				PED_Stage2('NS');
 				curr_state--;
 			}
 			break;
@@ -199,7 +225,7 @@ int main()
 			res = checkPed(DELAY20);
 			if (res == 1)
 			{
-				PED_Stage2('E');
+				PED_Stage2('EW');
 				curr_state--;
 			}
 			break;
