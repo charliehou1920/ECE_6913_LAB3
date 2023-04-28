@@ -23,6 +23,9 @@
 // 	setLED(LED_EW_RED, 0);
 // 	return;
 // }
+
+#include "header1.h"
+
 void STAGE_1()
 {
 	// ALL_OFF();
