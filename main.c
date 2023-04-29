@@ -11,6 +11,8 @@
 // 	PED_STAGE    // Pedestrian crossing mode
 // }State;
 
+
+//restart and all light off
 void RESTART()
 {
 	setLED(NS_GREEN, OFF);
@@ -24,6 +26,7 @@ void RESTART()
 	return;
 }
 
+// Both intersections red
 void STAGE_1()
 {
 	RESTART();
@@ -34,6 +37,7 @@ void STAGE_1()
 	return;
 }
 
+// North-South green, East-West red
 void STAGE_2()
 {
 	RESTART();
@@ -43,6 +47,7 @@ void STAGE_2()
 	return;
 }
 
+// North-South yellow
 void STAGE_3()
 {	
 	RESTART();
@@ -73,6 +78,7 @@ void STAGE_3()
 	return;
 }
 
+// East-West green, North-South red
 void STAGE_4()
 {
 	RESTART();
@@ -82,6 +88,7 @@ void STAGE_4()
 	return;
 }
 
+// East-West yellow
 void STAGE_5()
 {
 	int res = 0;
@@ -112,6 +119,10 @@ void STAGE_5()
 	return;
 }
 
+/* PED_Stage1:
+	(NO green light on both intersections)
+	When there no Green light on both intersection, the other light should continue to
+	remain red, and the pedestrian light turns green*/
 void PED_Stage1()
 {
 	RESTART();
@@ -125,15 +136,19 @@ void PED_Stage1()
 }
 
 
-// changed while
+/* PED_Stage2 
+	(There is a green light on NS or EW)
+	the current green light should change to flashing yellow for 10 seconds, then switch to
+	red to allow pedestrians to cross for 15 secs.*/
 void PED_Stage2(int Direction)
 {
 	RESTART();
-	// int k = 0;
 	setLED(PED_GREEN, ON);
+	// when direction is 0, which means north-south have green light
 	if (Direction == 0)
 	{
 		setLED(EW_RED, ON);
+		// flashing yellow for 10 seconds
 		for(int i = 1; i <= 10; i++)
 		{
 			setLED(NS_YELLOW, ON);
@@ -143,23 +158,12 @@ void PED_Stage2(int Direction)
 			setLED(NS_YELLOW, ON);
 			delay(Flashing);
 		}
-
-
-		// while (k <= 9)
-		// {
-		// 	setLED(NS_YELLOW, ON);
-		// 	delay(Flashing);
-		// 	setLED(NS_YELLOW, OFF);
-		// 	delay(Flashing);
-		// 	setLED(NS_YELLOW, ON);
-		// 	delay(Flashing);
-		// 	k++;
-		// }
 	}
+	// when direction is 0, which means east-west have green light
 	else if (Direction == 1)
 	{
 		setLED(NS_RED, ON);
-
+		//flashing yellow for 10 seconds
 		for(int i = 1; i <= 10; i++ )
 		{
 			setLED(EW_YELLOW, ON);
@@ -169,17 +173,6 @@ void PED_Stage2(int Direction)
 			setLED(EW_YELLOW, ON);
 			delay(Flashing);
 		}
-
-		// while (k <= 9)
-		// {
-		// 	setLED(EW_YELLOW, ON);
-		// 	delay(Flashing);
-		// 	setLED(EW_YELLOW, OFF);
-		// 	delay(Flashing);
-		// 	setLED(EW_YELLOW, ON);
-		// 	delay(Flashing);
-		// 	k++;
-		// }
 	}
 	setLED(NS_YELLOW, OFF);
 	setLED(EW_YELLOW, OFF);
@@ -200,6 +193,7 @@ int main()
 	setupGPIO();
 
 	int curr_state = 1;
+
 	while (1)
 	{
 		switch (curr_state)
