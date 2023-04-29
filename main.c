@@ -1,4 +1,5 @@
 #include "header1.h"
+#include <stdio.h>
 
 // typedef enum
 // {
@@ -26,6 +27,7 @@ void RESTART()
 void STAGE_1()
 {
 	RESTART();
+	
 	setLED(PED_RED, ON);
 	setLED(NS_RED, ON);
 	setLED(EW_RED, ON);
@@ -34,7 +36,7 @@ void STAGE_1()
 
 void STAGE_2()
 {
-	// RESTART();
+	RESTART();
 	setLED(PED_RED, ON);
 	setLED(NS_GREEN, ON);
 	setLED(EW_RED, ON);
@@ -42,9 +44,11 @@ void STAGE_2()
 }
 
 void STAGE_3()
-{
+{	
 	RESTART();
 	setLED(NS_YELLOW, ON);
+	setLED(PED_RED, ON);
+	setLED(EW_RED, ON);
 	int res = 0;
 	do
 	{
@@ -56,7 +60,8 @@ void STAGE_3()
 	} while (res == 1);
 	setLED(NS_YELLOW, OFF);
 	setLED(NS_RED, ON);
-	int res = 0;
+	// setLED(EW_RED, OFF);
+	res = 0;
 	do
 	{
 		res = checkPed(DELAY5);
@@ -121,12 +126,12 @@ void PED_Stage1()
 
 
 // changed while
-void PED_Stage2(char Direction)
+void PED_Stage2(int Direction)
 {
 	RESTART();
-	// int i = 0;
-	setLED(PED_RED, ON);
-	if (Direction == 'NS')
+	// int k = 0;
+	setLED(PED_GREEN, ON);
+	if (Direction == 0)
 	{
 		setLED(EW_RED, ON);
 		for(int i = 1; i <= 10; i++)
@@ -151,7 +156,7 @@ void PED_Stage2(char Direction)
 		// 	k++;
 		// }
 	}
-	else if (Direction == 'EW')
+	else if (Direction == 1)
 	{
 		setLED(NS_RED, ON);
 
@@ -213,7 +218,7 @@ int main()
 			res = checkPed(DELAY20);
 			if (res == 1)
 			{
-				PED_Stage2('NS');
+				PED_Stage2(0);
 				curr_state--;
 			}
 			break;
@@ -225,7 +230,7 @@ int main()
 			res = checkPed(DELAY20);
 			if (res == 1)
 			{
-				PED_Stage2('EW');
+				PED_Stage2(1);
 				curr_state--;
 			}
 			break;

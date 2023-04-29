@@ -18,6 +18,6 @@
 .equ PIN_9, 0x2 # GPIO pin 9 offset
 .equ PIN_17, 0x800 # GPIO pin 17 offset
 .equ PIN_18, 0x1000 # GPIO pin 18 offset
-.equ PIN_19, 0x40000 # GPIO pin 19 offset
-.equ PIN_4, 0x2000 # GPIO pin 4 offset
+.equ PIN_19, 0x2000 # GPIO pin 19 offset
+.equ PIN_4, 0x100000 # GPIO pin 4 offset
 .equ PIN_15, 0x200 # GPIO pin 15 offset

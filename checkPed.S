@@ -1,6 +1,6 @@
 .section .text
 .align 2
-.globl wait
+.globl checkPed
 
 #include "memoryMap.inc"
 #include "GPIO.inc"
